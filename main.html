@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[TAG] - Элитный клан World of Tanks</title>
+    <!-- Подключение шрифтов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Russo+One&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === ПЕРЕМЕННЫЕ === */
+        :root {
+            --bg-dark: #0d0d0d;
+            --accent-gold: #e5a93d;
+            --accent-gold-hover: #f5c71a;
+            --accent-red: #d32f2f;
+            --text-main: #ffffff;
+            --text-muted: #a3a3a3;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* === БАЗОВЫЕ НАСТРОЙКИ === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Russo One', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* === HEADER === */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(13, 13, 13, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent-gold);
+            text-shadow: 0 0 10px rgba(229, 169, 61, 0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* === HERO SECTION === */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            /* Заглушка фона. В идеале заменить URL на качественный арт танков */
+            background: url('https://images.unsplash.com/photo-1605704113264-77e8a939f408?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+        }
+
+        /* Красивый темный градиент поверх фона */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(13, 13, 13, 0.6) 0%, #0d0d0d 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #fff, #a3a3a3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            color: var(--accent-gold);
+            margin-bottom: 2.5rem;
+            font-weight: 600;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--bg-dark);
+            background: var(--accent-gold);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 0 20px rgba(229, 169, 61, 0.4);
+        }
+
+        .btn:hover {
+            background: var(--accent-gold-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(245, 199, 26, 0.6);
+        }
+
+        /* === СЕКЦИИ (ОБЩЕЕ) === */
+        section {
+            padding: 6rem 5%;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+            color: var(--text-main);
+        }
+
+        .section-title span {
+            color: var(--accent-gold);
+        }
+
+        /* === ТРЕБОВАНИЯ (GLASSMORPHISM) === */
+        .req-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-gold);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .glass-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-gold);
+        }
+
+        .glass-card p {
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* === СТАТИСТИКА === */
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stat-item h4 {
+            font-size: 4rem;
+            font-family: 'Russo One', sans-serif;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-item p {
+            color: var(--accent-red);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* === ФОРМА РЕКРУТИНГА === */
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--accent-gold);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .form-container .btn {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        /* === АДАПТИВНОСТЬ === */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* Для мобилок можно добавить гамбургер-меню, здесь скрыто для минимализма */
+            }
+            header {
+                justify-content: center;
+            }
+            .stats-container {
+                flex-direction: column;
+            }
+            .form-container {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка -->
+    <header>
+        <div class="logo">[TAG]</div>
+        <nav class="nav-links">
+            <a href="#requirements">Требования</a>
+            <a href="#stats">Статистика</a>
+            <a href="#apply">Вступить</a>
+        </nav>
+    </header>
+
+    <!-- Главный экран -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Имя Клана</h1>
+            <p>Стань частью элиты на Глобальной карте</p>
+            <a href="#apply" class="btn smooth-scroll">Подать заявку</a>
+        </div>
+    </section>
+
+    <!-- Требования -->
+    <section id="requirements">
+        <h2 class="section-title">Критерии <span>Отбора</span></h2>
+        <div class="req-grid">
+            <div class="glass-card">
+                <span class="card-icon">📈</span>
+                <h3>Winrate</h3>
+                <p>от 55% и выше</p>
+            </div>
+            <div class="glass-card">
+                <span class="card-icon">🎯</span>
+                <h3>WN8</h3>
+                <p>от 2000 за сессию</p>
+            </div>
+            <div class="glass-card">
+                <span class="card-icon">⚔️</span>
+                <h3>Формат</h3>
+                <p>Абсолютный (ГК, Наступы)</p>
+            </div>
+            <div class="glass-card">
+                <span class="card-icon">🕒</span>
+                <h3>Прайм-тайм</h3>
+                <p>20:00 - 00:00 (МСК/Киев)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Статистика -->
+    <section id="stats">
+        <h2 class="section-title">Наша <span>Мощь</span></h2>
+        <div class="stats-container">
+            <div class="stat-item">
+                <h4 id="stat-members">98</h4>
+                <p>Бойцов в клане</p>
+            </div>
+            <div class="stat-item">
+                <h4 id="stat-elo">1452</h4>
+                <p>Рейтинг Эло (АБС)</p>
+            </div>
+            <div class="stat-item">
+                <h4 id="stat-winrate">61%</h4>
+                <p>Процент побед</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Форма рекрутинга -->
+    <section id="apply">
+        <h2 class="section-title">Оставить <span>Заявку</span></h2>
+        <div class="form-container">
+            <form id="recruitmentForm">
+                <div class="form-group">
+                    <label for="nickname">Игровой никнейм</label>
+                    <input type="text" id="nickname" name="nickname" placeholder="Player_1" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="prime">Ваш прайм-тайм</label>
+                    <select id="prime" name="prime" required>
+                        <option value="" disabled selected>Выберите время...</option>
+                        <option value="19-23">19:00 - 23:00</option>
+                        <option value="20-00">20:00 - 00:00</option>
+                        <option value="21-01">21:00 - 01:00</option>
+                        <option value="other">Другое</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="stats-link">Ссылка на КТТС / Wotomatic</label>
+                    <input type="url" id="stats-link" name="stats_link" placeholder="https://kttc.ru/..." required>
+                </div>
+                <button type="submit" class="btn">Отправить в Штаб</button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        // === 1. Плавный скролл для якорных ссылок ===
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // === 2. Запрос статистики к Wargaming API ===
+        async function fetchClanData() {
+            /* 
+             * ВНИМАНИЕ РАЗРАБОТЧИКУ:
+             * Здесь нужно делать fetch-запрос к Wargaming Public API.
+             * 
+             * Пример URL:
+             * const app_id = 'YOUR_WG_APP_ID';
+             * const clan_id = 'YOUR_CLAN_ID';
+             * const url = `https://api.worldoftanks.eu/wot/clans/info/?application_id=${app_id}&clan_id=${clan_id}`;
+             * 
+             * try {
+             *     const response = await fetch(url);
+             *     const data = await response.json();
+             *     
+             *     if (data.status === 'ok') {
+             *         const clanInfo = data.data[clan_id];
+             *         
+             *         // Анимация набора цифр:
+             *         animateValue("stat-members", 0, clanInfo.members_count, 1500);
+             *         // Получить ЭЛО и Winrate можно из дополнительных методов API.
+             *     }
+             * } catch (error) {
+             *     console.error('Ошибка загрузки статистики клана:', error);
+             * }
+             */
+             console.log("WG API endpoint ready for integration.");
+        }
+        
+        // Вызов функции при загрузке страницы
+        document.addEventListener('DOMContentLoaded', fetchClanData);
+
+        // === 3. Обработка формы рекрутинга ===
+        const form = document.getElementById('recruitmentForm');
+        
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Предотвращаем перезагрузку страницы
+            
+            // Собираем данные
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Вывод в консоль согласно ТЗ
+            console.log('Новая заявка на вступление:');
+            console.table(data);
+            
+            /* 
+             * ЗДЕСЬ БУДЕТ ЛОГИКА ОТПРАВКИ:
+             * Вы можете отправить объект 'data' через fetch() в Telegram бота,
+             * либо записать документ напрямую в коллекцию вашей базы Firebase Firestore.
+             */
+
+            // Визуальный фидбек пользователю
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerText;
+            
+            submitBtn.innerText = 'Успешно отправлено!';
+            submitBtn.style.background = '#4CAF50';
+            submitBtn.style.color = '#fff';
+            
+            // Сброс формы
+            form.reset();
+            
+            // Возврат кнопки в исходное состояние
+            setTimeout(() => {
+                submitBtn.innerText = originalText;
+                submitBtn.style.background = '';
+                submitBtn.style.color = '';
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
